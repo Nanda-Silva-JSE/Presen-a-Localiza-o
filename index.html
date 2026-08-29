@@ -20,15 +20,11 @@
 
     <p id="status"></p>
 
-    <a id="mapa" href="#" target="_blank" style="display:none;"></a>
-    </a>
-
     <script>
 
         function capturarLocalizacao() {
 
             const status = document.getElementById("status");
-            const mapa = document.getElementById("mapa");
 
             status.innerText = "Obtendo sua localização...";
 
@@ -48,19 +44,19 @@
                     const longitude = position.coords.longitude;
                     const precisao = position.coords.accuracy;
 
-                    // Cria o link para o ponto exato no Google Maps
+                    // Link do Google Maps gerado internamente
                     const linkGoogleMaps =
                         "https://www.google.com/maps/search/?api=1&query="
                         + latitude + "," + longitude;
 
-                    mapa.href = linkGoogleMaps;
-
-                    status.innerText =
-                        "Localização obtida com sucesso!";
-
+                    // Dados disponíveis para usarmos posteriormente
                     console.log("Latitude:", latitude);
                     console.log("Longitude:", longitude);
                     console.log("Precisão:", precisao);
+                    console.log("Google Maps:", linkGoogleMaps);
+
+                    status.innerText =
+                        "Localização obtida com sucesso!";
 
                 },
 
@@ -84,4 +80,5 @@
     </script>
 
 </body>
+</html>
 </html>
