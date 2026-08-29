@@ -2,74 +2,374 @@
 <html lang="pt-BR">
 
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Confirmação de Presença</title>
+    <title>Confirmação de Presença | Liga</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f4fbfd,
+                    #dff3f7
+                );
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 24px;
+
+            color: #174b5c;
+        }
+
+
+        .container {
+
+            width: 100%;
+
+            max-width: 430px;
+
+            background: white;
+
+            border-radius: 24px;
+
+            padding: 38px 28px;
+
+            text-align: center;
+
+            box-shadow:
+                0 15px 45px
+                rgba(23, 75, 92, 0.15);
+        }
+
+
+        .logo {
+
+            width: 150px;
+
+            height: 150px;
+
+            object-fit: cover;
+
+            border-radius: 50%;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 5px 18px
+                rgba(23, 75, 92, 0.15);
+        }
+
+
+        h1 {
+
+            font-size: 27px;
+
+            margin-bottom: 15px;
+
+            color: #174b5c;
+        }
+
+
+        .descricao {
+
+            font-size: 16px;
+
+            line-height: 1.6;
+
+            color: #5d7078;
+
+            margin-bottom: 28px;
+        }
+
+
+        .aviso {
+
+            background: #f0f8fa;
+
+            border-radius: 14px;
+
+            padding: 15px;
+
+            margin-bottom: 25px;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+
+            color: #52717b;
+        }
+
+
+        button {
+
+            width: 100%;
+
+            border: none;
+
+            border-radius: 14px;
+
+            padding: 16px 20px;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #36a6bc,
+                    #16849d
+                );
+
+            color: white;
+
+            box-shadow:
+                0 8px 20px
+                rgba(22, 132, 157, 0.25);
+
+            transition:
+                transform 0.2s,
+                box-shadow 0.2s;
+        }
+
+
+        button:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 10px 24px
+                rgba(22, 132, 157, 0.35);
+        }
+
+
+        button:disabled {
+
+            opacity: 0.6;
+
+            cursor: wait;
+
+            transform: none;
+        }
+
+
+        #status {
+
+            margin-top: 20px;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+
+            color: #52717b;
+        }
+
+
+        .sucesso {
+
+            color: #16849d !important;
+
+            font-weight: bold;
+        }
+
+
+        .rodape {
+
+            margin-top: 25px;
+
+            font-size: 12px;
+
+            color: #8ba0a7;
+        }
+
+
+        @media (max-width: 480px) {
+
+            body {
+
+                padding: 16px;
+            }
+
+
+            .container {
+
+                padding: 32px 22px;
+            }
+
+
+            .logo {
+
+                width: 130px;
+
+                height: 130px;
+            }
+
+
+            h1 {
+
+                font-size: 24px;
+            }
+
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
-    <h1>Confirmação de presença</h1>
 
-    <p>
-        Para confirmar sua presença, precisamos verificar sua localização.
-    </p>
+    <main class="container">
 
-    <button id="botaoLocalizacao" onclick="capturarLocalizacao()">
-        Permitir localização
-    </button>
 
-    <p id="status"></p>
+        <!-- =================================================
+             LOGO DA LIGA
+             NÃO ALTERE ESTA LINHA
+             ================================================= -->
+
+        <img
+            src="Logo%20da%20Liga.jpeg"
+            alt="Logo da Liga"
+            class="logo"
+        >
+
+
+        <h1>
+            Confirmação de Presença
+        </h1>
+
+
+        <p class="descricao">
+
+            Para confirmar sua presença,
+            precisamos verificar sua localização.
+
+        </p>
+
+
+        <div class="aviso">
+
+            📍 Sua localização será utilizada
+            exclusivamente para validar sua presença
+            no local do encontro.
+
+        </div>
+
+
+        <button
+            id="botaoLocalizacao"
+            onclick="capturarLocalizacao()"
+        >
+
+            📍 Confirmar localização
+
+        </button>
+
+
+        <p id="status"></p>
+
+
+        <p class="rodape">
+
+            Liga Empreendedora
+
+        </p>
+
+
+    </main>
 
 
     <script>
 
 
 
-        const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbywOdcJCagp-6zQY4SJfxNuuS_4XDhKB_FIQL3zkxcLnqwVvL1j9TV5Jhyi3TQNl6Ny/exec";
+
+        const URL_APPS_SCRIPT =
+            "https://script.google.com/macros/s/AKfycbywOdcJCagp-6zQY4SJfxNuuS_4XDhKB_FIQL3zkxcLnqwVvL1j9TV5Jhyi3TQNl6Ny/exec";
 
 
 
 
-        const URL_FORMS = "https://forms.cloud.microsoft/r/diU08HCnV5";
+        const URL_FORMS =
+            "https://forms.cloud.microsoft/r/diU08HCnV5";
 
 
         function capturarLocalizacao() {
 
+
             const status =
                 document.getElementById("status");
 
+
             const botao =
-                document.getElementById("botaoLocalizacao");
+                document.getElementById(
+                    "botaoLocalizacao"
+                );
 
 
             status.innerText =
                 "Obtendo sua localização...";
+
 
             botao.disabled = true;
 
 
             if (!navigator.geolocation) {
 
+
                 status.innerText =
                     "Seu navegador não suporta localização.";
 
+
                 botao.disabled = false;
 
+
                 return;
+
             }
 
 
             navigator.geolocation.getCurrentPosition(
 
+
                 function(position) {
+
 
                     const latitude =
                         position.coords.latitude;
 
+
                     const longitude =
                         position.coords.longitude;
+
 
                     const precisao =
                         position.coords.accuracy;
@@ -90,53 +390,57 @@
                         "Localização obtida! Registrando...";
 
 
-                    fetch(URL_APPS_SCRIPT, {
+                    fetch(
+                        URL_APPS_SCRIPT,
+                        {
 
-                        method: "POST",
+                            method: "POST",
 
-                        mode: "no-cors",
+                            mode: "no-cors",
 
-                        headers: {
+                            headers: {
 
-                            "Content-Type":
-                                "text/plain;charset=utf-8"
+                                "Content-Type":
+                                    "text/plain;charset=utf-8"
 
-                        },
+                            },
 
-                        body: JSON.stringify(dados)
+                            body:
+                                JSON.stringify(dados)
 
-                    })
+                        }
+                    )
 
 
                     .then(function() {
+
 
                         status.innerText =
                             "✅ Localização registrada!";
 
 
-                        /*
-                         * Cria o botão para continuar
-                         * para o Microsoft Forms.
-                         */
+                        status.classList.add(
+                            "sucesso"
+                        );
+
 
                         const botaoForms =
-                            document.createElement("button");
+                            document.createElement(
+                                "button"
+                            );
 
 
                         botaoForms.innerText =
                             "Continuar para o formulário";
 
 
-                        botaoForms.style.display =
-                            "block";
-
-
                         botaoForms.style.marginTop =
-                            "20px";
+                            "15px";
 
 
                         botaoForms.onclick =
                             function() {
+
 
                                 window.location.assign(
                                     URL_FORMS
@@ -145,17 +449,22 @@
                             };
 
 
-                        document.body.appendChild(
-                            botaoForms
-                        );
+                        document
+                            .querySelector(".container")
+                            .appendChild(
+                                botaoForms
+                            );
+
 
                     })
 
 
                     .catch(function() {
 
+
                         status.innerText =
                             "❌ Não foi possível registrar a localização.";
+
 
                         botao.disabled = false;
 
@@ -166,9 +475,11 @@
 
                 function(error) {
 
+
                     status.innerText =
                         "❌ Não foi possível obter sua localização. " +
                         "Permita o acesso à localização para continuar.";
+
 
                     botao.disabled = false;
 
@@ -189,7 +500,9 @@
 
         }
 
+
     </script>
+
 
 </body>
 
