@@ -20,7 +20,7 @@
 
     <p id="status"></p>
 
-    <a id="mapa" href="#" target="_blank" style="display:none;">
+    <a id="mapa" href="#" target="_blank" style="display:none;"></a>
         Ver minha localização no Google Maps
     </a>
 
@@ -55,7 +55,6 @@
                         + latitude + "," + longitude;
 
                     mapa.href = linkGoogleMaps;
-                    mapa.style.display = "inline";
 
                     status.innerText =
                         "Localização obtida com sucesso!";
