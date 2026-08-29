@@ -16,7 +16,7 @@
         Para confirmar sua presença, precisamos verificar sua localização.
     </p>
 
-    <button onclick="capturarLocalizacao()">
+    <button id="botaoLocalizacao" onclick="capturarLocalizacao()">
         Permitir localização
     </button>
 
@@ -37,15 +37,25 @@
 
         function capturarLocalizacao() {
 
-            const status = document.getElementById("status");
+            const status =
+                document.getElementById("status");
 
-            status.innerText = "Obtendo sua localização...";
+            const botao =
+                document.getElementById("botaoLocalizacao");
+
+
+            status.innerText =
+                "Obtendo sua localização...";
+
+            botao.disabled = true;
 
 
             if (!navigator.geolocation) {
 
                 status.innerText =
                     "Seu navegador não suporta localização.";
+
+                botao.disabled = false;
 
                 return;
             }
@@ -101,19 +111,43 @@
                     .then(function() {
 
                         status.innerText =
-                            "Localização registrada! Abrindo formulário...";
+                            "✅ Localização registrada!";
 
 
                         /*
-                         * Aguarda 1 segundo e abre o Forms
+                         * Cria o botão para continuar
+                         * para o Microsoft Forms.
                          */
 
-                        setTimeout(function() {
+                        const botaoForms =
+                            document.createElement("button");
 
-                            window.location.href =
-                                URL_FORMS;
 
-                        }, 1000);
+                        botaoForms.innerText =
+                            "Continuar para o formulário";
+
+
+                        botaoForms.style.display =
+                            "block";
+
+
+                        botaoForms.style.marginTop =
+                            "20px";
+
+
+                        botaoForms.onclick =
+                            function() {
+
+                                window.location.assign(
+                                    URL_FORMS
+                                );
+
+                            };
+
+
+                        document.body.appendChild(
+                            botaoForms
+                        );
 
                     })
 
@@ -121,7 +155,9 @@
                     .catch(function() {
 
                         status.innerText =
-                            "Não foi possível registrar a localização.";
+                            "❌ Não foi possível registrar a localização.";
+
+                        botao.disabled = false;
 
                     });
 
@@ -131,8 +167,10 @@
                 function(error) {
 
                     status.innerText =
-                        "Não foi possível obter sua localização. " +
+                        "❌ Não foi possível obter sua localização. " +
                         "Permita o acesso à localização para continuar.";
+
+                    botao.disabled = false;
 
                 },
 
