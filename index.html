@@ -11,7 +11,7 @@
     <h1>Confirmação de presença</h1>
 
     <p>
-        Para confirmar sua presença, precisamos da sua localização.
+        Para confirmar sua presença, precisamos verificar sua localização.
     </p>
 
     <button onclick="capturarLocalizacao()">
@@ -20,17 +20,26 @@
 
     <p id="status"></p>
 
+    <a id="mapa" href="#" target="_blank" style="display:none;">
+        Ver minha localização no Google Maps
+    </a>
+
     <script>
+
         function capturarLocalizacao() {
 
             const status = document.getElementById("status");
-
-            if (!navigator.geolocation) {
-                status.innerText = "Seu navegador não suporta localização.";
-                return;
-            }
+            const mapa = document.getElementById("mapa");
 
             status.innerText = "Obtendo sua localização...";
+
+            if (!navigator.geolocation) {
+
+                status.innerText =
+                    "Seu navegador não suporta localização.";
+
+                return;
+            }
 
             navigator.geolocation.getCurrentPosition(
 
@@ -40,12 +49,20 @@
                     const longitude = position.coords.longitude;
                     const precisao = position.coords.accuracy;
 
+                    // Cria o link para o ponto exato no Google Maps
+                    const linkGoogleMaps =
+                        "https://www.google.com/maps/search/?api=1&query="
+                        + latitude + "," + longitude;
+
+                    mapa.href = linkGoogleMaps;
+                    mapa.style.display = "inline";
+
+                    status.innerText =
+                        "Localização obtida com sucesso!";
+
                     console.log("Latitude:", latitude);
                     console.log("Longitude:", longitude);
                     console.log("Precisão:", precisao);
-
-                    status.innerText =
-                        "Localização obtida!";
 
                 },
 
@@ -59,11 +76,13 @@
 
                 {
                     enableHighAccuracy: true,
-                    timeout: 10000,
+                    timeout: 15000,
                     maximumAge: 0
                 }
+
             );
         }
+
     </script>
 
 </body>
