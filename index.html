@@ -22,6 +22,9 @@
 
     <script>
 
+        // COLE A URL DO SEU APPS SCRIPT ENTRE AS ASPAS ABAIXO
+        const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbywOdcJCagp-6zQY4SJfxNuuS_4XDhKB_FIQL3zkxcLnqwVvL1j9TV5Jhyi3TQNl6Ny/exec";
+
         function capturarLocalizacao() {
 
             const status = document.getElementById("status");
@@ -44,19 +47,35 @@
                     const longitude = position.coords.longitude;
                     const precisao = position.coords.accuracy;
 
-                    // Link do Google Maps gerado internamente
-                    const linkGoogleMaps =
-                        "https://www.google.com/maps/search/?api=1&query="
-                        + latitude + "," + longitude;
-
-                    // Dados disponíveis para usarmos posteriormente
-                    console.log("Latitude:", latitude);
-                    console.log("Longitude:", longitude);
-                    console.log("Precisão:", precisao);
-                    console.log("Google Maps:", linkGoogleMaps);
+                    const dados = {
+                        latitude: latitude,
+                        longitude: longitude,
+                        precisao: precisao
+                    };
 
                     status.innerText =
-                        "Localização obtida com sucesso!";
+                        "Localização obtida! Registrando...";
+
+                    fetch(URL_APPS_SCRIPT, {
+                        method: "POST",
+                        mode: "no-cors",
+                        headers: {
+                            "Content-Type": "text/plain;charset=utf-8"
+                        },
+                        body: JSON.stringify(dados)
+                    })
+                    .then(function() {
+
+                        status.innerText =
+                            "Localização registrada com sucesso!";
+
+                    })
+                    .catch(function() {
+
+                        status.innerText =
+                            "Não foi possível registrar a localização.";
+
+                    });
 
                 },
 
