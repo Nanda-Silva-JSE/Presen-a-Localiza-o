@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Confirmação de Presença</title>
 </head>
 
@@ -20,16 +22,25 @@
 
     <p id="status"></p>
 
+
     <script>
 
-        // COLE A URL DO SEU APPS SCRIPT ENTRE AS ASPAS ABAIXO
+
+
         const URL_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycbywOdcJCagp-6zQY4SJfxNuuS_4XDhKB_FIQL3zkxcLnqwVvL1j9TV5Jhyi3TQNl6Ny/exec";
+
+
+
+
+        const URL_FORMS = "https://forms.cloud.microsoft/r/P8PRs3Byjm";
+
 
         function capturarLocalizacao() {
 
             const status = document.getElementById("status");
 
             status.innerText = "Obtendo sua localização...";
+
 
             if (!navigator.geolocation) {
 
@@ -39,37 +50,74 @@
                 return;
             }
 
+
             navigator.geolocation.getCurrentPosition(
 
                 function(position) {
 
-                    const latitude = position.coords.latitude;
-                    const longitude = position.coords.longitude;
-                    const precisao = position.coords.accuracy;
+                    const latitude =
+                        position.coords.latitude;
+
+                    const longitude =
+                        position.coords.longitude;
+
+                    const precisao =
+                        position.coords.accuracy;
+
 
                     const dados = {
+
                         latitude: latitude,
+
                         longitude: longitude,
+
                         precisao: precisao
+
                     };
+
 
                     status.innerText =
                         "Localização obtida! Registrando...";
 
+
                     fetch(URL_APPS_SCRIPT, {
+
                         method: "POST",
+
                         mode: "no-cors",
+
                         headers: {
-                            "Content-Type": "text/plain;charset=utf-8"
+
+                            "Content-Type":
+                                "text/plain;charset=utf-8"
+
                         },
+
                         body: JSON.stringify(dados)
+
                     })
+
+
                     .then(function() {
 
                         status.innerText =
-                            "Localização registrada com sucesso!";
+                            "Localização registrada! Abrindo formulário...";
+
+
+                        /*
+                         * Aguarda 1 segundo e abre o Forms
+                         */
+
+                        setTimeout(function() {
+
+                            window.location.href =
+                                URL_FORMS;
+
+                        }, 1000);
 
                     })
+
+
                     .catch(function() {
 
                         status.innerText =
@@ -79,6 +127,7 @@
 
                 },
 
+
                 function(error) {
 
                     status.innerText =
@@ -87,17 +136,23 @@
 
                 },
 
+
                 {
+
                     enableHighAccuracy: true,
+
                     timeout: 15000,
+
                     maximumAge: 0
+
                 }
 
             );
+
         }
 
     </script>
 
 </body>
-</html>
+
 </html>
