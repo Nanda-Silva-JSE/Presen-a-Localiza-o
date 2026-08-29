@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmação de Presença</title>
+</head>
+
+<body>
+
+    <h1>Confirmação de presença</h1>
+
+    <p>
+        Para confirmar sua presença, precisamos da sua localização.
+    </p>
+
+    <button onclick="capturarLocalizacao()">
+        Permitir localização
+    </button>
+
+    <p id="status"></p>
+
+    <script>
+        function capturarLocalizacao() {
+
+            const status = document.getElementById("status");
+
+            if (!navigator.geolocation) {
+                status.innerText = "Seu navegador não suporta localização.";
+                return;
+            }
+
+            status.innerText = "Obtendo sua localização...";
+
+            navigator.geolocation.getCurrentPosition(
+
+                function(position) {
+
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+                    const precisao = position.coords.accuracy;
+
+                    console.log("Latitude:", latitude);
+                    console.log("Longitude:", longitude);
+                    console.log("Precisão:", precisao);
+
+                    status.innerText =
+                        "Localização obtida!";
+
+                },
+
+                function(error) {
+
+                    status.innerText =
+                        "Não foi possível obter sua localização. " +
+                        "Permita o acesso à localização para continuar.";
+
+                },
+
+                {
+                    enableHighAccuracy: true,
+                    timeout: 10000,
+                    maximumAge: 0
+                }
+            );
+        }
+    </script>
+
+</body>
+</html>
